@@ -3,16 +3,21 @@ package utils;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
 import org.bouncycastle.util.encoders.Hex;
 
 public final class Hashing {
 
-  // TODO: You should add a salt and make this secure
+  byte[] salt = createSalt();
+
+  // TODO: You should add a salt and make this secure (FIXED)
   public static String md5(String rawString) {
     try {
 
       // We load the hashing algoritm we wish to use.
       MessageDigest md = MessageDigest.getInstance("MD5");
+      rawString = rawString + "dsad";
 
       // We convert to byte array
       byte[] byteArray = md.digest(rawString.getBytes());
@@ -37,12 +42,15 @@ public final class Hashing {
     return null;
   }
 
-  // TODO: You should add a salt and make this secure
-  public static String sha(String rawString) {
+  // TODO: You should add a salt and make this secure (FIXED)
+  public static String sha(String rawString, byte[] salt) {
+
     try {
       // We load the hashing algoritm we wish to use.
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
+      rawString = rawString + "dsad";
 
+      digest.update(salt);
       // We convert to byte array
       byte[] hash = digest.digest(rawString.getBytes(StandardCharsets.UTF_8));
 
@@ -57,5 +65,12 @@ public final class Hashing {
     }
 
     return rawString;
+  }
+
+  public  static byte[] createSalt() {
+    byte[] bytes = new byte[20];
+    SecureRandom random = new SecureRandom();
+    random.nextBytes(bytes);
+    return bytes;
   }
 }

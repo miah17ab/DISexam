@@ -10,6 +10,7 @@ public class ProductCache {
   // List of products
   private ArrayList<Product> products;
 
+
   // Time cache should live
   private long ttl;
 
@@ -20,7 +21,7 @@ public class ProductCache {
     this.ttl = Config.getProductTtl();
   }
 
-  public ArrayList<Product> getProducts(Boolean forceUpdate) {
+  public ArrayList<Product> getProducts (Boolean forceUpdate) {
 
     // If we whis to clear cache, we can set force update.
     // Otherwise we look at the age of the cache and figure out if we should update.
@@ -35,6 +36,8 @@ public class ProductCache {
       // Set products for the instance and set created timestamp
       this.products = products;
       this.created = System.currentTimeMillis() / 1000L;
+
+      System.out.println("Cache is not used");
     }
 
     // Return the documents

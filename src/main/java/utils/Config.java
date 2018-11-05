@@ -2,6 +2,8 @@ package utils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.solr.client.solrj.SolrQuery;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +26,7 @@ public final class Config {
   public static long getProductTtl() {
     return PRODUCT_TTL;
   }
+
 
   public static String getDatabaseHost() {
     return DATABASE_HOST;
