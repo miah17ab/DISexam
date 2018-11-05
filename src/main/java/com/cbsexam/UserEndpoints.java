@@ -1,7 +1,7 @@
 package com.cbsexam;
 
+import cache.UserCache;
 import com.google.gson.Gson;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import controllers.UserController;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
@@ -42,6 +42,8 @@ public class UserEndpoints {
     return Response.status(200).type(MediaType.APPLICATION_JSON_TYPE).entity(json).build();
   }
 
+  UserCache userCache = new UserCache();
+
   /** @return Responses */
   @GET
   @Path("/")
@@ -51,7 +53,7 @@ public class UserEndpoints {
     Log.writeLog(this.getClass().getName(), this, "Get all users", 0);
 
     // Get a list of users
-    ArrayList<User> users = UserController.getUsers();
+    ArrayList<User> users = userCache.getUsers(false);
 
     // TODO: Add Encryption to JSON (FIXED)
     // Transfer users to json in order to return it to the user
@@ -84,6 +86,7 @@ public class UserEndpoints {
       // Return a response with status 200 and JSON as type
       return Response.status(200).type(MediaType.APPLICATION_JSON_TYPE).entity(json).build();
     } else {
+
       return Response.status(400).entity("Could not create user").build();
     }
   }
@@ -115,7 +118,6 @@ public class UserEndpoints {
       return Response.status(400).entity("Brugeren kan ikke findes i systemet").build();
     }
 
-
   }
 
    @POST
@@ -126,3 +128,4 @@ public class UserEndpoints {
     return Response.status(400).entity("Endpoint not implemented yet").build();
   }
 }
+

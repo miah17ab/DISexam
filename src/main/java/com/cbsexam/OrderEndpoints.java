@@ -49,7 +49,7 @@ public class OrderEndpoints {
   public Response getOrders() {
 
     // Call our controller-layer in order to get the order from the DB
-    ArrayList<Order> orders = OrderCache.getOrders(false);
+    ArrayList<Order> orders = orderCache.getOrders(false);
 
     // TODO: Add Encryption to JSON (FIXED)
     // We convert the java object to json with GSON library imported in Maven
@@ -88,3 +88,4 @@ public class OrderEndpoints {
     }
   }
 }
+
