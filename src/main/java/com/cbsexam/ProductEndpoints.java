@@ -40,7 +40,7 @@ public class ProductEndpoints {
     return Response.status(200).type(MediaType.TEXT_PLAIN_TYPE).entity(json).build();
   }
 
-  ProductCache productCache = new ProductCache();
+  static ProductCache productCache = new ProductCache();
 
   /** @return Responses */
   @GET

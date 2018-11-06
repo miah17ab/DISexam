@@ -2,8 +2,9 @@ package cache;
 
 //TODO: Build this cache and use it.
 
-import controllers.UserController;
+
 import java.util.ArrayList;
+import controllers.UserController;
 import model.User;
 import utils.Config;
 
@@ -11,6 +12,7 @@ public class UserCache {
 
     // List of products
     private ArrayList<User> users;
+
 
     // Time cache should live
     private long ttl;
@@ -28,7 +30,7 @@ public class UserCache {
         // Otherwise we look at the age of the cache and figure out if we should update.
         // If the list is empty we also check for new products
         if (forceUpdate
-                || ((this.created + this.ttl) >= (System.currentTimeMillis() / 1000L))
+                || ((this.created + this.ttl) <= (System.currentTimeMillis() / 1000L))
                 || this.users.isEmpty()) {
 
             // Get products from controller, since we wish to update.

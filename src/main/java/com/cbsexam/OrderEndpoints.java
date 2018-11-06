@@ -41,7 +41,8 @@ public class OrderEndpoints {
 
   }
 
-  OrderCache orderCache = new OrderCache();
+  //Gør så det kun instialiseres en gang og ikke flere
+  static OrderCache orderCache = new OrderCache();
 
   /** @return Responses */
   @GET
@@ -88,4 +89,5 @@ public class OrderEndpoints {
     }
   }
 }
+
 

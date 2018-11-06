@@ -97,6 +97,7 @@ public class UserEndpoints {
   @Consumes(MediaType.APPLICATION_JSON)
   public Response loginUser(String x) {
 
+
     // Return a response with status 200 and JSON as type
     return Response.status(400).entity("Endpoint not implemented yet").build();
   }
@@ -120,12 +121,12 @@ public class UserEndpoints {
 
   }
 
-   @POST
-   @Path("/update/{update}")  // TODO: Make the system able to update users
+  // TODO: Make the system able to update users
+  @POST
+  @Path("/update/{update}")
   public Response updateUser(String x) {
 
     // Return a response with status 200 and JSON as type
     return Response.status(400).entity("Endpoint not implemented yet").build();
   }
 }
-
