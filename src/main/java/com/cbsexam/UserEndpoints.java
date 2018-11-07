@@ -3,6 +3,8 @@ package com.cbsexam;
 import cache.UserCache;
 import com.google.gson.Gson;
 import controllers.UserController;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -37,9 +39,15 @@ public class UserEndpoints {
     json = Encryption.encryptDecryptXOR(json);
 
 
-    // Return the user with the status code 200
     // TODO: What should happen if something breaks down?
-    return Response.status(200).type(MediaType.APPLICATION_JSON_TYPE).entity(json).build();
+    // Get first row and create the object and return it
+    if (user != null) {
+      // Return the user with the status code 200
+      return Response.status(200).type(MediaType.APPLICATION_JSON_TYPE).entity(json).build();
+    } else {
+      // Return a response with status 200 and JSON as type
+      return Response.status(400).entity("Brugeren kan ikke findes i systemet").build();
+    }
   }
 
   UserCache userCache = new UserCache();
