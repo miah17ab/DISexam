@@ -11,6 +11,7 @@ public final class Hashing {
 
   byte[] salt = createSalt();
 
+  //husk create time - tager fra databasen
   // TODO: You should add a salt and make this secure (FIXED)
   public static String md5(String rawString) {
     try {
@@ -48,7 +49,7 @@ public final class Hashing {
     try {
       // We load the hashing algoritm we wish to use.
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
-      rawString = rawString + "dsad";
+      rawString = rawString + "Kmskde";
 
       digest.update(salt);
       // We convert to byte array
@@ -73,4 +74,6 @@ public final class Hashing {
     random.nextBytes(bytes);
     return bytes;
   }
+
 }
+
