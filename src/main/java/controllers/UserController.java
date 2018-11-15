@@ -120,7 +120,7 @@ public class UserController {
         // TODO: Hash the user password before saving it. (FIXED)
 
         int userID = dbCon.insert(
-                "INSERT INTO user(first_name, last_name, password, email, created_at) VALUES('"
+                "INSERT INTO user (first_name, last_name, password, email, created_at) VALUES('"
                         + user.getFirstname()
                         + "', '"
                         + user.getLastname()
@@ -221,21 +221,33 @@ public class UserController {
 
     }
 
-    public static void updateUser(int id) {
+    public static boolean updateUser(User user, String token) {
+
+        Hashing hashing = new Hashing();
 
         // Check for DB Connection
         if (dbCon == null) {
             dbCon = new DatabaseController();
-
         }
 
-        String sql = "SELECT FROM user WHERE id =" + id;
+        DecodedJWT jwt = null;
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("auth0")
+                    .build(); //Reusable verifier instance
+            jwt = verifier.verify(token);
+        } catch (JWTVerificationException exception) {
+            //Invalid signature/claims
+        }
 
-        dbCon.updateUser(sql);
+        String sql =
+                "UPDATE user SET first_name = '" + user.getFirstname() + "', last_name ='" + user.getLastname()
+                        + "', password = '" + hashing.md5(user.getPassword()) + "', email ='" + user.getEmail()
+                        + "' WHERE id = " + jwt.getClaim("userid").asInt();
 
-
+        return dbCon.updateUser(sql);
     }
-
 }
 
 

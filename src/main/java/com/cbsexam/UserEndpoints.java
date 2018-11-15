@@ -103,7 +103,7 @@ public class UserEndpoints {
         }
     }
 
-    // TODO: Make the system able to login users and assign them a token to use throughout the system.
+    // TODO: Make the system able to login users and assign them a token to use throughout the system. (FIXED)
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -126,12 +126,14 @@ public class UserEndpoints {
     }
 
     @DELETE
-    @Path("/delete/")
+    @Path("/delete")
     // TODO: Make the system able to delete users (FIXED)
-    public Response deleteUser(String token) {
+    public Response deleteUser(String body) {
+
+        User user = new Gson().fromJson(body, User.class);
 
         // Return the data to the user
-        if (UserController.deleteUser(token)) {
+        if (UserController.deleteUser(user.getToken())) {
 
             // Return a response with status 200 and JSON as type
             return Response.status(200).entity("Bruger er slettet fra systemet").build();
@@ -144,16 +146,24 @@ public class UserEndpoints {
 
     // TODO: Make the system able to update users
     @POST
-    @Path("/update/{update}")
-    public Response updateUser(@PathParam("update") int idToUpdate) {
+    @Path("/updateUser")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateUser(String body) {
 
-        UserController.updateUser(idToUpdate);
-        if (idToUpdate != 0) {
+        User user = new Gson().fromJson(body, User.class);
 
-            return Response.status(200).entity("Brugeren med id " + idToUpdate + "isisjd").build();
+        // Return the data to the user
+        if (UserController.updateUser(user, user.getToken())) {
+
+            //Opdatere Cache
+            userCache.getUsers(true);
+
+            // Return a response with status 200 and JSON as type
+            return Response.status(200).entity("Bruger er updateret i systemet").build();
         } else {
             // Return a response with status 200 and JSON as type
-            return Response.status(400).entity("Brugeren kan ikke opdateres").build();
+            return Response.status(400).entity("Brugeren kan ikke findes i systemet").build();
         }
     }
 }
+
