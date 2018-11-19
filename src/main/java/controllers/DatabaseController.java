@@ -162,5 +162,20 @@ public class DatabaseController {
         return false;
     }
 
+    public boolean createOrder(String sql) {
+
+        if (connection == null)
+            connection = getConnection();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return false;
+    }
+
 }
 

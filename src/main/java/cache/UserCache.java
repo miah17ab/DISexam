@@ -4,6 +4,7 @@ package cache;
 
 
 import java.util.ArrayList;
+
 import controllers.UserController;
 import model.User;
 import utils.Config;
@@ -24,7 +25,7 @@ public class UserCache {
         this.ttl = Config.getUserTtl();
     }
 
-    public ArrayList<User> getUsers (Boolean forceUpdate) {
+    public ArrayList<User> getUsers(Boolean forceUpdate) {
 
         // If we whis to clear cache, we can set force update.
         // Otherwise we look at the age of the cache and figure out if we should update.

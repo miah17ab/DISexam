@@ -146,7 +146,7 @@ public class UserEndpoints {
 
     // TODO: Make the system able to update users
     @POST
-    @Path("/updateUser")
+    @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateUser(String body) {
 
