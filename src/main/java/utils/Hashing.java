@@ -9,39 +9,44 @@ import org.bouncycastle.util.encoders.Hex;
 
 public final class Hashing {
 
-  byte[] salt = createSalt();
 
   //husk create time - tager fra databasen
   // TODO: You should add a salt and make this secure (FIXED)
   public static String md5(String rawString) {
-    try {
 
-      // We load the hashing algoritm we wish to use.
-      MessageDigest md = MessageDigest.getInstance("MD5");
-      rawString = rawString + "dsad";
+    if (Config.getSalt()) {
 
-      // We convert to byte array
-      byte[] byteArray = md.digest(rawString.getBytes());
+      String key = Config.getSaltKey();
 
-      // Initialize a string buffer
-      StringBuffer sb = new StringBuffer();
+      try {
 
-      // Run through byteArray one element at a time and append the value to our stringBuffer
-      for (int i = 0; i < byteArray.length; ++i) {
-        sb.append(Integer.toHexString((byteArray[i] & 0xFF) | 0x100).substring(1, 3));
+        // We load the hashing algoritm we wish to use.
+        // byte[] key = Config.getSaltkey();
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        rawString = rawString + "dsad";
+
+        // We convert to byte array
+        byte[] byteArray = md.digest(rawString.getBytes());
+
+        // Initialize a string buffer
+        StringBuffer sb = new StringBuffer();
+
+        // Run through byteArray one element at a time and append the value to our stringBuffer
+        for (int i = 0; i < byteArray.length; ++i) {
+          sb.append(Integer.toHexString((byteArray[i] & 0xFF) | 0x100).substring(1, 3));
+        }
+
+        //Convert back to a single string and return
+        return sb.toString();
+
+      } catch (java.security.NoSuchAlgorithmException e) {
+
+        //If somethings breaks
+        System.out.println("Could not hash string");
       }
 
-      //Convert back to a single string and return
-      return sb.toString();
-
-    } catch (java.security.NoSuchAlgorithmException e) {
-
-      //If somethings breaks
-      System.out.println("Could not hash string");
+      return null;
     }
-
-    return null;
-  }
 
   // TODO: You should add a salt and make this secure (FIXED)
   public static String sha(String rawString, byte[] salt) {
@@ -68,12 +73,6 @@ public final class Hashing {
     return rawString;
   }
 
-  public  static byte[] createSalt() {
-    byte[] bytes = new byte[20];
-    SecureRandom random = new SecureRandom();
-    random.nextBytes(bytes);
-    return bytes;
-  }
 
 }
 

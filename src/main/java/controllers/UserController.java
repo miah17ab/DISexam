@@ -164,7 +164,7 @@ public class UserController {
 
         String sql = "DELETE FROM user WHERE id = " + jwt.getClaim("userid").asInt();
 
-        return dbCon.deleteUser(sql);
+        return dbCon.insert(sql) == 1;
 
     }
 
@@ -177,7 +177,7 @@ public class UserController {
 
         String sql = "SELECT * FROM user where email='" + user.getEmail() + "'AND password ='" + user.getPassword() + "'";
 
-        dbCon.loginUser(sql);
+        dbCon.insert(sql);
 
         // Actually do the query
         ResultSet resultSet = dbCon.query(sql);
@@ -246,7 +246,7 @@ public class UserController {
                         + "', password = '" + hashing.md5(user.getPassword()) + "', email ='" + user.getEmail()
                         + "' WHERE id = " + jwt.getClaim("userid").asInt();
 
-        return dbCon.updateUser(sql);
+        return dbCon.insert(sql) == 1;
     }
 }
 

@@ -79,6 +79,7 @@ public class OrderController {
             dbCon = new DatabaseController();
         }
 
+        //lav med user og adress
         String sql = "SELECT * FROM orders";
 
         ResultSet rs = dbCon.query(sql);
@@ -88,6 +89,7 @@ public class OrderController {
             while (rs.next()) {
 
                 // Perhaps we could optimize things a bit here and get rid of nested queries.
+                //lav med user og adress
                 User user = UserController.getUser(rs.getInt("user_id"));
                 ArrayList<LineItem> lineItems = LineItemController.getLineItemsForOrder(rs.getInt("id"));
                 Address billingAddress = AddressController.getAddress(rs.getInt("billing_address_id"));
@@ -139,7 +141,8 @@ public class OrderController {
         order.setCustomer(UserController.createUser(order.getCustomer()));
 
         //Sætte den til null før man kan sætte til false/true
-        Connection connection = null;
+        Connection connection = dbCon.getConnection();
+
         // TODO: Enable transactions in order for us to not save the order if somethings fails for some of the other inserts.
         try {
             connection.setAutoCommit(false);
@@ -159,6 +162,8 @@ public class OrderController {
                             + ", "
                             + order.getUpdatedAt()
                             + ")");
+
+
 
             if (orderID != 0) {
                 //Update the productid of the product before returning

@@ -16,7 +16,6 @@ public final class Config {
   private static String DATABASE_USERNAME;
   private static String DATABASE_PASSWORD;
   private static String DATABASE_NAME;
-  private static boolean ENCRYPTION;
   private static String SOLR_HOST;
   private static int SOLR_PORT;
   private static String SOLR_PATH;
@@ -24,7 +23,11 @@ public final class Config {
   private static long PRODUCT_TTL;
   private static long USER_TTL;
   private static long ORDER_TTL;
+  private static boolean ENCRYPTION;
   private static String ENCRYPTION_KEY;
+  private static boolean SALT;
+  private static String SALT_KEY;
+
 
   public static long getProductTtl() {
     return PRODUCT_TTL;
@@ -37,9 +40,6 @@ public final class Config {
   public static long getOrderTtl() {
     return ORDER_TTL;
   }
-
-  public static char[] getEncryptionkey() { return ENCRYPTION_KEY.toCharArray(); }
-
 
   public static String getDatabaseHost() {
     return DATABASE_HOST;
@@ -61,9 +61,22 @@ public final class Config {
     return DATABASE_NAME;
   }
 
+
+
   public static Boolean getEncryption() {
     return ENCRYPTION;
   }
+
+  public static String getEncryptionkey() { return ENCRYPTION_KEY.toString(); }
+
+
+
+    public static Boolean getSalt() {
+      return SALT;
+    }
+
+    public static String getSaltKey() { return SALT_KEY.toString(); }
+
 
   public static String getSolrHost() {
     return SOLR_HOST;
@@ -109,7 +122,6 @@ public final class Config {
     DATABASE_USERNAME = json.get("DATABASE_USERNAME").toString().replace("\"", "");
     DATABASE_PASSWORD = json.get("DATABASE_PASSWORD").toString().replace("\"", "");
     DATABASE_NAME = json.get("DATABASE_NAME").toString().replace("\"", "");
-    ENCRYPTION = json.get("ENCRYPTION").getAsBoolean();
     SOLR_HOST = json.get("SOLR_HOST").toString().replace("\"", "");
     SOLR_PORT = Integer.parseInt(json.get("SOLR_PORT").toString().replace("\"", ""));
     SOLR_PATH = json.get("SOLR_PATH").toString().replace("\"", "");
@@ -118,7 +130,9 @@ public final class Config {
     USER_TTL = json.get("USER_TTL").getAsLong();
     ORDER_TTL = json.get("ORDER_TTL").getAsLong();
     ENCRYPTION_KEY = json.get("ENCRYPTION_KEY").getAsString();
-
+    ENCRYPTION = json.get("ENCRYPTION").getAsBoolean();
+    SALT_KEY = json.get("SALT_KEY").getAsString();
+    SALT = json.get("SALT").getAsBoolean();
 
   }
 }
