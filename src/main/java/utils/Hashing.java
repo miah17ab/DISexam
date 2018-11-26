@@ -14,16 +14,13 @@ public final class Hashing {
   // TODO: You should add a salt and make this secure (FIXED)
   public static String md5(String rawString) {
 
-    if (Config.getSalt()) {
-
-      String key = Config.getSaltKey();
 
       try {
 
         // We load the hashing algoritm we wish to use.
         // byte[] key = Config.getSaltkey();
         MessageDigest md = MessageDigest.getInstance("MD5");
-        rawString = rawString + "dsad";
+        rawString = rawString + Config.getSaltKey();
 
         // We convert to byte array
         byte[] byteArray = md.digest(rawString.getBytes());
@@ -54,7 +51,7 @@ public final class Hashing {
     try {
       // We load the hashing algoritm we wish to use.
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
-      rawString = rawString + "Kmskde";
+      rawString = rawString + Config.getSaltKey();
 
       digest.update(salt);
       // We convert to byte array
@@ -73,6 +70,6 @@ public final class Hashing {
     return rawString;
   }
 
-
 }
+
 

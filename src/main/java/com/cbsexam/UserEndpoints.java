@@ -80,7 +80,7 @@ public class UserEndpoints {
     }
 
     @POST
-    @Path("/")
+    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createUser(String body) {
 
@@ -144,7 +144,7 @@ public class UserEndpoints {
 
     }
 
-    // TODO: Make the system able to update users
+    // TODO: Make the system able to update users (FIXED)
     @POST
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
