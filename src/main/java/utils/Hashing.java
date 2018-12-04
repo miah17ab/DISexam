@@ -46,14 +46,13 @@ public final class Hashing {
     }
 
   // TODO: You should add a salt and make this secure (FIXED)
-  public static String sha(String rawString, byte[] salt) {
+  public static String sha(String rawString) {
 
     try {
       // We load the hashing algoritm we wish to use.
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
       rawString = rawString + Config.getSaltKey();
 
-      digest.update(salt);
       // We convert to byte array
       byte[] hash = digest.digest(rawString.getBytes(StandardCharsets.UTF_8));
 

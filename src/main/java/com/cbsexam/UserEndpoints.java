@@ -1,15 +1,9 @@
 package com.cbsexam;
 
 import cache.UserCache;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.google.gson.Gson;
 import controllers.UserController;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -34,10 +28,10 @@ public class UserEndpoints {
         User user = UserController.getUser(idUser);
 
         // TODO: Add Encryption to JSON (FIXED)
-        // Convert the user object to json in order to return the object
+        // Convert the user object from Gson to json in order to return the object
         String json = new Gson().toJson(user);
 
-        //fixed
+        // Make the encryption with XOR
         json = Encryption.encryptDecryptXOR(json);
 
 
@@ -48,7 +42,7 @@ public class UserEndpoints {
             return Response.status(200).type(MediaType.APPLICATION_JSON_TYPE).entity(json).build();
         } else {
             // Return a response with status 400
-            return Response.status(400).entity("Brugeren kan ikke findes i systemet").build();
+            return Response.status(400).entity("User not found").build();
         }
     }
 
@@ -71,12 +65,13 @@ public class UserEndpoints {
         // Transfer users to json in order to return it to the user
         String json = new Gson().toJson(users);
 
-        //fixed
+        // Make encryption with XOR
         json = Encryption.encryptDecryptXOR(json);
 
 
         // Return the users with the status code 200
         return Response.status(200).type(MediaType.APPLICATION_JSON).entity(json).build();
+
     }
 
     @POST
@@ -121,6 +116,8 @@ public class UserEndpoints {
             // Return a response with status 200 and JSON as type
             return Response.status(200).type(MediaType.APPLICATION_JSON_TYPE).entity(token).build();
         } else {
+
+            // Return a response with status 400
             return Response.status(400).entity("Could not create user").build();
         }
     }
@@ -161,9 +158,8 @@ public class UserEndpoints {
             // Return a response with status 200 and JSON as type
             return Response.status(200).entity("Bruger er updateret i systemet").build();
         } else {
-            // Return a response with status 200 and JSON as type
+            // Return a response with status 400
             return Response.status(400).entity("Brugeren kan ikke findes i systemet").build();
         }
     }
 }
-

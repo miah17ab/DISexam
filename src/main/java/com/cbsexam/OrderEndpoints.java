@@ -38,12 +38,18 @@ public class OrderEndpoints {
         //fixed
         json = Encryption.encryptDecryptXOR(json);
 
-        // Return a response with status 200 and JSON as type
-        return Response.status(200).type(MediaType.APPLICATION_JSON).entity(json).build();
+        if (order != null) {
+            // Return a response with status 200 and JSON as type
+            return Response.status(200).type(MediaType.APPLICATION_JSON).entity(json).build();
+        } else {
+
+            // Return a response with status 400 and a message in text
+            return Response.status(400).entity("Could not create user").build();
+        }
 
     }
 
-    //Gør så det kun instialiseres en gang og ikke flere
+    // instialiseres only once and not several times
     static OrderCache orderCache = new OrderCache();
 
     /**

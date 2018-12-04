@@ -39,7 +39,6 @@ public class ProductCache {
             this.products = products;
             this.created = System.currentTimeMillis() / 1000L;
 
-            System.out.println("Cache is not used");
         }
 
         // Return the documents

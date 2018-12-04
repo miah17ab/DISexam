@@ -164,7 +164,6 @@ public class OrderController {
                             + ")");
 
 
-
             if (orderID != 0) {
                 //Update the productid of the product before returning
                 order.setId(orderID);
@@ -181,6 +180,8 @@ public class OrderController {
             order.setLineItems(items);
             connection.commit();
 
+            //gør så databasen kan kommme videre. Hvis noget data går i stå, så skal den rollback, dvs. gemme alt
+            //men ikke comitte det
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             try {
