@@ -62,6 +62,8 @@ public class DatabaseController {
             connection = getConnection();
 
 
+        System.out.println(connection.toString());
+
         // We set the resultset as empty.
         ResultSet rs = null;
 
