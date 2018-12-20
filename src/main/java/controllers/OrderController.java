@@ -27,7 +27,7 @@ public class OrderController {
             dbCon = new DatabaseController();
         }
 
-        // Build SQL string to query
+        // // We should impement user and adress in the SQL queries
         String sql = "SELECT * FROM orders where id=" + id;
 
         // Do the query in the database and create an empty object for the results
@@ -180,8 +180,7 @@ public class OrderController {
             order.setLineItems(items);
             connection.commit();
 
-            //gør så databasen kan kommme videre. Hvis noget data går i stå, så skal den rollback, dvs. gemme alt
-            //men ikke comitte det
+            //The DB can continue. If something data goes wrong it has to rollback and safe all data, but not comit it
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             try {

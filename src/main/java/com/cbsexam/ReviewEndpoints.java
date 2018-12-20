@@ -31,7 +31,7 @@ public class ReviewEndpoints {
         // We convert the java object to json with GSON library imported in Maven
         String json = new Gson().toJson(reviews);
 
-        //fixed
+        // We take the string from Json format and encrypt it with the type of encrypt called XOR
         json = Encryption.encryptDecryptXOR(json);
 
 

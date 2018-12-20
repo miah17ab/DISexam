@@ -46,6 +46,7 @@ public class UserEndpoints {
         }
     }
 
+
     static UserCache userCache = new UserCache();
 
     /**
@@ -117,7 +118,7 @@ public class UserEndpoints {
             return Response.status(200).type(MediaType.APPLICATION_JSON_TYPE).entity(token).build();
         } else {
 
-            // Return a response with status 400
+            // Return a response with status 400 with message
             return Response.status(400).entity("Could not create user").build();
         }
     }
@@ -135,7 +136,7 @@ public class UserEndpoints {
             // Return a response with status 200 and JSON as type
             return Response.status(200).entity("Bruger er slettet fra systemet").build();
         } else {
-            // Return a response with status 200 and JSON as type
+            // Return a response with status 400 with a message
             return Response.status(400).entity("Brugeren kan ikke findes i systemet").build();
         }
 
@@ -152,13 +153,13 @@ public class UserEndpoints {
         // Return the data to the user
         if (UserController.updateUser(user, user.getToken())) {
 
-            //Opdatere Cache
+            //Opdate cache after user is updated in the DB
             userCache.getUsers(true);
 
             // Return a response with status 200 and JSON as type
             return Response.status(200).entity("Bruger er updateret i systemet").build();
         } else {
-            // Return a response with status 400
+            // Return a response with status 400 with a message
             return Response.status(400).entity("Brugeren kan ikke findes i systemet").build();
         }
     }

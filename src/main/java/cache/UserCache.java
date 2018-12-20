@@ -21,10 +21,12 @@ public class UserCache {
     // Sets when the cache has been created
     private long created;
 
+    // Get OrderTtl from the file config in a constructor
     public UserCache() {
         this.ttl = Config.getUserTtl();
     }
 
+    // Takes orders from a arraylist, where it will get orders if boolean is false
     public ArrayList<User> getUsers(Boolean forceUpdate) {
 
         // If we whis to clear cache, we can set force update.
@@ -47,4 +49,3 @@ public class UserCache {
         return this.users;
     }
 }
-

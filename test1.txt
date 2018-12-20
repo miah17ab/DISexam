@@ -1,0 +1,16 @@
+#login 
+
+http://18.188.58.171:8080/cbsexam_war/user/login POST {"id": 4, "firstname":Jeppe","lastname": Thorn, "email": "henrik@abc.dk", "password": "17bffdf9ec903d5a0416c3ca0624afad"}
+
+# GET user 
+http://18.188.58.171:8080/cbsexam_war/user/4
+
+#GET products 
+http://18.188.58.171:8080/cbsexam_war/product 
+
+# UPDATE user 
+http://18.188.58.171:8080/cbsexam_war/user/update POST {"id": 4, "firstname": "Jeppe","lastname": "Thorn, "email": "henrik@abc.dk", "password": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad", createdTime":0,
+"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYnNleGFtIiwidXNlcmlkIjoxfQ.am7_uTF9lYfCfa6SLV9GbBpLbPp4e5qfdL82LxuQjqM"
+
+#Review
+http://18.188.58.171:8080/cbsexam_war/search/title/api

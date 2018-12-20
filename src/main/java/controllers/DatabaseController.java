@@ -24,7 +24,7 @@ public class DatabaseController {
      */
     public static Connection getConnection() {
         try {
-            // Set the dataabase connect with the data from the config
+            // Set the database connect with the data from the config
             String url =
                     "jdbc:mysql://"
                             + Config.getDatabaseHost()
@@ -34,6 +34,7 @@ public class DatabaseController {
                             + Config.getDatabaseName()
                             + "?serverTimezone=CET";
 
+            // Make a request for the DB's username and password
             String user = Config.getDatabaseUsername();
             String password = Config.getDatabasePassword();
 
@@ -43,6 +44,7 @@ public class DatabaseController {
             // create a connection to the database
             connection = DriverManager.getConnection(url, user, password);
 
+            // If there is a SQL-exception will it print a message out
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -106,6 +108,7 @@ public class DatabaseController {
             if (generatedKeys.next()) {
                 return generatedKeys.getInt(1);
             }
+            // If there is a SQL-exception will it print a message out
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

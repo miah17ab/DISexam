@@ -14,7 +14,6 @@ public final class Hashing {
   // TODO: You should add a salt and make this secure (FIXED)
   public static String md5(String rawString) {
 
-
       try {
 
         // We load the hashing algoritm we wish to use.

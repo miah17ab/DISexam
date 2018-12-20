@@ -19,10 +19,12 @@ public class ProductCache {
     // Sets when the cache has been created
     private long created;
 
+    // Get OrderTtl from the file config in a constructor
     public ProductCache() {
         this.ttl = Config.getProductTtl();
     }
 
+    // Takes orders from a arraylist, where it will get orders if boolean is false
     public ArrayList<Product> getProducts(Boolean forceUpdate) {
 
         // If we whis to clear cache, we can set force update.

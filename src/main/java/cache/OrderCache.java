@@ -12,18 +12,18 @@ public class OrderCache {
     // List of orders
     private ArrayList<Order> orders;
 
-
     // Time cache should live
     private long ttl;
 
     // Sets when the cache has been created
     private long created;
 
-    // Get OrderTtl from config in a constructor
+    // Get OrderTtl from the file config in a constructor
     public OrderCache() {
         this.ttl = Config.getOrderTtl();
     }
 
+    // Takes orders from a arraylist, where it will get orders if boolean is false
     public ArrayList<Order> getOrders(Boolean forceUpdate) {
 
         // If we whis to clear cache, we can set force update.

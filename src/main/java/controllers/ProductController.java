@@ -99,8 +99,10 @@ public class ProductController {
         }
 
         // TODO: Use caching layer (FIXED)
+       // Is implemented and used in productEndpoint and therefor not necessary to implement here
         String sql = "SELECT * FROM product";
 
+        // A ResultSet object maintains a cursor pointing to its current row of data and continue
         ResultSet rs = dbCon.query(sql);
         ArrayList<Product> products = new ArrayList<Product>();
 

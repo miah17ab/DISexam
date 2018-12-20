@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 import model.Order;
 import utils.Encryption;
 
+
 @Path("order")
 public class OrderEndpoints {
 
@@ -27,7 +28,7 @@ public class OrderEndpoints {
     @Path("/{idOrder}")
     public Response getOrder(@PathParam("idOrder") int idOrder) {
 
-        // Call our controller-layer in order to get the order from the DB
+        // Call our controller-layer in order to get the orders from the DB
         Order order = OrderController.getOrder(idOrder);
 
 
@@ -35,21 +36,20 @@ public class OrderEndpoints {
         // We convert the java object to json with GSON library imported in Maven
         String json = new Gson().toJson(order);
 
-        //fixed
+        // We take the string from Json format and encrypt it with the type of encrypt called XOR
         json = Encryption.encryptDecryptXOR(json);
 
         if (order != null) {
             // Return a response with status 200 and JSON as type
             return Response.status(200).type(MediaType.APPLICATION_JSON).entity(json).build();
         } else {
-
             // Return a response with status 400 and a message in text
             return Response.status(400).entity("Could not create user").build();
         }
 
     }
 
-    // instialiseres only once and not several times
+    // Create object of Ordercache once
     static OrderCache orderCache = new OrderCache();
 
     /**
@@ -66,7 +66,7 @@ public class OrderEndpoints {
         // We convert the java object to json with GSON library imported in Maven
         String json = new Gson().toJson(orders);
 
-        //fixed
+        // We take the string from Json format and encrypt it with the type of encrypt called XOR
         json = Encryption.encryptDecryptXOR(json);
 
 

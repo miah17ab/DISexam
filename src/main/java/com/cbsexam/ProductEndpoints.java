@@ -34,7 +34,7 @@ public class ProductEndpoints {
         // We convert the java object to json with GSON library imported in Maven
         String json = new Gson().toJson(product);
 
-        //fixed
+        // We take the string from Json format and encrypt it with the type of encrypt called XOR
         json = Encryption.encryptDecryptXOR(json);
 
 
@@ -58,7 +58,7 @@ public class ProductEndpoints {
         // We convert the java object to json with GSON library imported in Maven
         String json = new Gson().toJson(products);
 
-        //fixed
+        // We take the string from Json format and encrypt it with the type of encrypt called XOR
         json = Encryption.encryptDecryptXOR(json);
 
 

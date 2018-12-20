@@ -125,6 +125,7 @@ public class UserController {
                         + "', '"
                         + user.getLastname()
                         + "', '"
+                        // Implement my SHA-method so the users password will be hashed
                         + Hashing.sha(user.getPassword())
                         + "', '"
                         + user.getEmail()
@@ -153,9 +154,10 @@ public class UserController {
 
         DecodedJWT jwt = null;
         try {
+            // This algoritm will use the value "secret"
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("auth0")
+                    .withIssuer("cbsexam")
                     .build(); //Reusable verifier instance
             jwt = verifier.verify(token);
         } catch (JWTVerificationException exception) {
@@ -200,7 +202,7 @@ public class UserController {
                         Algorithm algorithm = Algorithm.HMAC256("secret");
                         token = JWT.create()
                                 .withClaim("userid", userlogin.getId())
-                                .withIssuer("auth0")
+                                .withIssuer("cbsexam")
                                 .sign(algorithm);
                     } catch (JWTCreationException exception) {
                         //Invalid Signing configuration / Couldn't convert Claims.
@@ -234,23 +236,18 @@ public class UserController {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             JWTVerifier verifier = JWT.require(algorithm)
-                    .withIssuer("auth0")
+                    .withIssuer("cbsexam")
                     .build(); //Reusable verifier instance
             jwt = verifier.verify(token);
-        } catch (JWTVerificationException exception) {
-            //Invalid signature/claims
-        }
+        } catch (JWTVerificationException e) {
+
+            System.out.println(e.getMessage());}
 
         String sql =
                 "UPDATE user SET first_name = '" + user.getFirstname() + "', last_name ='" + user.getLastname()
-                        + "', password = '" + hashing.md5(user.getPassword()) + "', email ='" + user.getEmail()
+                        + "', password = '" + hashing.sha(user.getPassword()) + "', email ='" + user.getEmail()
                         + "' WHERE id = " + jwt.getClaim("userid").asInt();
 
         return dbCon.insert(sql) == 1;
     }
 }
-
-
-
-
-

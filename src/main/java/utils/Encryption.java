@@ -9,12 +9,14 @@ public final class Encryption {
 
       // The key is predefined and hidden in code
       // TODO: Create a more complex code and store it somewhere better (FIXED)
+      // Have maked our Encryptionkey, so the value is hidden in Config.json
       char[] key = Config.getEncryptionkey();
 
       // Stringbuilder enables you to play around with strings and make useful stuff
       StringBuilder thisIsEncrypted = new StringBuilder();
 
-      // TODO: This is where the magic of XOR is happening. Are you able to explain what is going on?
+      // TODO: This is where the magic of XOR is happening. Are you able to explain what is going on? (FIXED)
+      // Explained in my repport
       for (int i = 0; i < rawString.length(); i++) {
         thisIsEncrypted.append((char) (rawString.charAt(i) ^ key[i % key.length]));
       }
